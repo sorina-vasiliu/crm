@@ -1,0 +1,10 @@
+.title{
+    text-align: center;
+}
+.min-height{
+    min-height :450px;
+}
+.save-btn{
+    float: right;
+    width: 200px;
+}

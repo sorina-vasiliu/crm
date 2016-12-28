@@ -1,0 +1,12 @@
+.container{text-align: center;}
+
+.roleBox{ font-weight: bolder;}
+
+.margin-top{
+    margin-top: 2%;
+}
+.save-btn{
+    float: right;
+    width: 200px;
+}
+

@@ -1,0 +1,22 @@
+{
+    "name": "project-fito",
+    "version": "1.0.0-SNAPSHOT",
+    "dependencies": {
+        "angular": "latest",
+        "angular-resource": "latest",
+        "jquery": "latest",
+        "jquery-ui": "latest",
+        "semantic-ui": "latest",
+        "sockjs": "latest",
+        "stomp-websocket": "latest",
+        "showdown": "latest",
+        "lodash": "latest",
+        "bootstrap": "latest",
+        "bootstrap-star-rating": "latest",
+        "datatables.net":"latest",
+        "datatables.net-bs":"latest",
+        "datatables.net-jqui":"latest",
+        "summernote":"0.8.1",
+        "multiselect-two-sides":"latest"
+    }
+}
