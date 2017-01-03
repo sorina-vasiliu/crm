@@ -48,9 +48,8 @@ WelcomeController {
     }
 
     @RequestMapping(value = "/home/addWyswyg", method = RequestMethod.POST)
-    public ResponseEntity<HomeShallow> addWyswyg(@RequestParam("htmlForWysiwyg") String htmlForWysiwyg,
-                                                 @RequestParam(name = "usersId[]") List<Integer> usersId) {
-        HomeShallow response = homeService.addWywywig(StringEscapeUtils.escapeHtml4(htmlForWysiwyg), usersId);
+    public ResponseEntity<HomeShallow> addWyswyg(@RequestParam("htmlForWysiwyg") String htmlForWysiwyg) {
+        HomeShallow response = homeService.addWywywig(StringEscapeUtils.escapeHtml4(htmlForWysiwyg));
         ResponseEntity<HomeShallow> entity = new ResponseEntity<>(response, HttpStatus.OK);
         return entity;
     }
@@ -65,7 +64,7 @@ WelcomeController {
 
     @RequestMapping(value = "/home/getHtmlContent", method = RequestMethod.GET)
     public ResponseEntity<List<HomeShallow>> getHtmlContent(@RequestParam(name = "usersId[]") List<Integer> usersId) {
-        List<HomeShallow> home = homeService.getWywywig(usersId);
+        List<HomeShallow> home = homeService.getWywywig();
         ResponseEntity<List<HomeShallow>> entity = new ResponseEntity<>(home, HttpStatus.OK);
         return entity;
     }
@@ -79,7 +78,7 @@ WelcomeController {
 
     private void populateModelMap(ModelMap modelMap, String type) {
         if (SessionUtils.GetCurrentUser().getRole() != Role.ADMIN) {
-            List<String> content = homeService.getUserHome(SessionUtils.GetCurrentUser().getId());
+            List<String> content = homeService.getUserHome();
             modelMap.addAttribute("content", content);
             return;
         }

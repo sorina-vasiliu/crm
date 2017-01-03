@@ -39,9 +39,6 @@ public class User {
     @Column(name = "createdOn", nullable = true)
     private Timestamp createdOn;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserHome> usersHome;
-
     public Integer getId() {
         return id;
     }
@@ -98,11 +95,4 @@ public class User {
         this.firstLogin = firstLogin;
     }
 
-    public List<UserHome> getUsersHome() {
-        return usersHome;
-    }
-
-    public void setUsersHome(List<UserHome> usersHome) {
-        this.usersHome = usersHome;
-    }
 }

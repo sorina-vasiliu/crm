@@ -16,7 +16,7 @@
 <#if userRole == 'ADMIN'>
 <input id="activePage" type="hidden" class="hidden" value="${activePage}" />
 <div class="container">
-    <div class="row margin-top">
+   <!-- <div class="row margin-top">
         <div class="col-md-12 col-xs-12" >
           <ul class="nav nav-tabs nav-justified">
               <li role="presentation" ${(activePage =="client")?string('class="active"','')}><a href="./home">Clienti</a></li>
@@ -33,7 +33,7 @@
             <div id="error-user-not-selected" class="alert alert-danger" role="alert" style="display:none">Nu ati selectat nici un utilizator.</div>
             <div id="error-empty-text" class="alert alert-danger" role="alert" style="display:none">Nu ati introdus nici un text.</div>
         </div>
-    </div>
+    </div> -->
     <div class="row margin-top">
         <div class="col-md-12 col-xs-12" >
             <div class="roleBox">

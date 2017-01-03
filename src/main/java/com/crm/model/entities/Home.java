@@ -13,8 +13,6 @@ public class Home {
     @Column(name = "html")
     @Lob
     private String html;
-    @OneToMany(mappedBy = "home")
-    private List<UserHome> usersHome;
 
     public int getId() {
         return id;
@@ -31,12 +29,5 @@ public class Home {
     public void setHtml(String html) {
         this.html = html;
     }
-
-    public List<UserHome> getUsersHome() {
-        return usersHome;
-    }
-
-    public void setUsersHome(List<UserHome> usersHome) {
-        this.usersHome = usersHome;
-    }
 }
+

@@ -2,16 +2,14 @@ package com.crm.service;
 
 import com.crm.model.datatable.HomeShallow;
 import com.crm.model.entities.Home;
-import com.crm.model.entities.User;
-import com.crm.model.entities.UserHome;
 import com.crm.repository.HomeRepository;
-import com.crm.repository.UserHomeRepository;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Dragos on 4/23/2016.
@@ -20,26 +18,11 @@ import java.util.List;
 public class HomeService {
     @Autowired
     private HomeRepository homeRepository;
-    @Autowired
-    private UserHomeRepository userHomeRepository;
 
-    public HomeShallow addWywywig(String htmlForWysiwyg, List<Integer> userIds) {
+    public HomeShallow addWywywig(String htmlForWysiwyg) {
         Home home = new Home();
         home.setHtml(htmlForWysiwyg);
         Home responseHome = homeRepository.saveAndFlush(home);
-
-        List<UserHome> homeUsers = new ArrayList<>();
-        for (int id : userIds) {
-            User user = new User();
-            user.setId(id);
-
-            UserHome userHome = new UserHome();
-            userHome.setUser(user);
-            userHome.setHome(responseHome);
-
-            homeUsers.add(userHome);
-        }
-        userHomeRepository.save(homeUsers);
 
         return getShallowHome(responseHome);
     }
@@ -51,29 +34,23 @@ public class HomeService {
         homeRepository.save(home);
     }
 
-    public List<HomeShallow> getWywywig(List<Integer> usersId) {
-        List<UserHome> usersHome = userHomeRepository.getUserHomeByUsersId(usersId);
+    public List<HomeShallow> getWywywig() {
+        List<Home> usersHome = homeRepository.findAll();
         List<HomeShallow> home = new ArrayList<>();
-        for (UserHome userHome : usersHome) {
-            HomeShallow homeShallow = getShallowHome(userHome.getHome());
-            if (!home.contains(homeShallow)) {
+        for (Home item : usersHome) {
+            HomeShallow homeShallow = getShallowHome(item);
                 home.add(homeShallow);
-            }
         }
         return home;
     }
 
     public void delete(int id) {
-        userHomeRepository.delete(id);
         homeRepository.delete(id);
     }
 
-    public List<String> getUserHome(Integer usersId) {
-        List<UserHome> usersHome = userHomeRepository.getUserHomeByUserId(usersId);
-        List<String> homeInfo = new ArrayList<>();
-        for (UserHome info : usersHome) {
-            homeInfo.add(StringEscapeUtils.unescapeHtml4(info.getHome().getHtml()));
-        }
+    public List<String> getUserHome() {
+        List<Home> usersHome = homeRepository.findAll();
+        List<String> homeInfo = usersHome.stream().map(info -> StringEscapeUtils.unescapeHtml4(info.getHtml())).collect(Collectors.toList());
         return homeInfo;
     }
 
