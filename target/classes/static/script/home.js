@@ -115,7 +115,7 @@ $(document).ready(function() {
         lang: 'ro-RO'
     });
 
-    $("#save-btn").on('click',function(){
+    $("#save-btn").on('click', function () {
         $("#error-empty-text").hide();
         $("#error-user-not-selected").hide()
 
@@ -124,25 +124,19 @@ $(document).ready(function() {
             $("#error-empty-text").show();
             return;
         }
-        var usersId = [];
-        $('#multiselect_to option').each(function () {
-            usersId.push(parseInt($(this).val()));
-        });
-        if (usersId.length == 0) {
-            $("#error-user-not-selected").show();
-            return;
-        }
-        ;
+
         $.ajax({
             url: "./home/addWyswyg",
             method: "POST",
-            data: {htmlForWysiwyg: htmlForWysiwyg, usersId: usersId}
-        }).success(function (data) {
-            $('#summernote').summernote('code', "");
-            $("#wygwys-content").prepend(getHtml(data));
-        }).error(function (request, status, error) {
-            console.log("Request:" + request.error() + "Status:" + status + "Error:" + error);
+            data: {htmlForWysiwyg: htmlForWysiwyg},
+            success: function (data) {
+                $('#summernote').summernote('code', "");
+                $("#wygwys-content").prepend(getHtml(data))
+            },
+            error: function (request, status, error) {
+                console.log("Request:" + request.error() + "Status:" + status + "Error:" + error);
+            }
         });
-    })
-    $(".ui-helper-hidden-accessible").remove();
+        $(".ui-helper-hidden-accessible").remove();
+    });
 });
